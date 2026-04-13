@@ -1,0 +1,51 @@
+name: DesafioVariaveis
+
+on:
+  workflow_dispatch:
+
+env:
+  APP_NAME: MinhaApp
+
+jobs:
+  build_app:
+    runs-on: ubuntu-latest
+
+    env:
+      BUILD_VERSION: 1.0.0
+
+    steps:
+      - name: Passo 1
+        run: |
+          echo "App: $APP_NAME"
+          echo "Versao: $BUILD_VERSION"
+
+      - name: Passo 2
+        env:
+          STEP_TEMP: temp123
+        run: |
+          echo "Variavel temporaria: $STEP_TEMP"
+
+      - name: Passo 2 teste
+        run: |
+          echo "Tentando acessar STEP_TEMP: $STEP_TEMP"
+
+      - name: Passo 3
+        run: |
+          echo "Usuario $GITHUB_ACTOR repo $GITHUB_REPOSITORY sistema $RUNNER_OS"
+
+      - name: Passo 4
+        run: |
+          echo "BUILD_HASH=$RANDOM" >> $GITHUB_ENV
+
+      - name: Passo 5
+        run: |
+          echo "Hash: $BUILD_HASH"
+
+  deploy_app:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Passo 6
+        run: |
+          echo "URL: ${{ vars.URL_AMBIENTE }}"
+          echo "TOKEN: ${{ secrets.API_TOKEN_PROD }}"
